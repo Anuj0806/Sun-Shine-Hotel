@@ -1,5 +1,5 @@
 // Function to dynamically load a script
-var public_key = "Bc6Q0uME5PARDaYq";
+var public_key = "Bc6Q0uME5PARDagYq";
 function loadScript(url, callback) {
     const script = document.createElement('script');
     script.src = url;
