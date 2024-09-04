@@ -1,0 +1,29 @@
+.dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #2c94b3;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    width: max-content;
+}
+.dropdown a {
+    display: block;  
+    padding: 0px 15px;
+}
+.items:hover .dropdown {
+    display: block;
+}
+
+.btn a {
+    color: white;
+    text-decoration: none;
+}
+
+@media all and (max-width: 1100px){
+.items:hover .dropdown {
+     z-index: 3;
+    width: 34%;
+    left: 60px;   
+}
+}

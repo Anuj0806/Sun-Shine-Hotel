@@ -418,8 +418,12 @@ function add_hotel_details() {
 
             // If email does not exist, proceed with adding the new employee data
             const lastEmpId = localStorage.getItem("lastEmpId");
-            const lastEmpIdNumber = lastEmpId ? parseInt(lastEmpId, 10) : 0;
+            const lastEmpIdNumber = lastEmpId ? parseInt(lastEmpId, 10) : 1;                        
             const nextEmpId = lastEmpIdNumber + 1;
+            
+            const lastHotelId = localStorage.getItem("lastHotelId");
+            const lastHotelIdNumber = lastHotelId ? parseInt(lastHotelId, 10) : 1;                        
+            const nextHotelId = lastHotelIdNumber + 1;
 
             const employee_login_hotel = {
                 "emp_id": nextEmpId,
@@ -434,7 +438,7 @@ function add_hotel_details() {
             };
 
             const hotel_details = {
-                "hotel_id": nextEmpId,
+                "hotel_id": nextHotelId,
                 "hotel_name": hotel_name,
                 "hotel_address": hotel_add,
                 "addhar_card": employee_addhar,
@@ -466,6 +470,7 @@ function add_hotel_details() {
                     localStorage.setItem("employee_login", JSON.stringify(employeesArray));
                     localStorage.setItem("hotel_details", JSON.stringify(hotelArray));
                     localStorage.setItem("lastEmpId", nextEmpId); // Store the latest employee ID
+                    localStorage.setItem("lastHotelId", nextHotelId); // Store the latest employee ID
 
                     employee_Username = document.getElementById("employee_Username").value = "";
                     employee_add = document.getElementById("employee_add").value = "";
@@ -732,7 +737,15 @@ function populate_rooms() {
     tableBody.innerHTML = ''; // Clear existing rows
     const hotels_id_storage = parseInt(sessionStorage.getItem('employeeHotelId'), 10);
 //    const hotels_id_storage = ;
-    const filteredData = rooms_json.filter(rooms => rooms.hotel_id === hotels_id_storage);
+    const employeeEmail = sessionStorage.getItem('employeeEmail');
+    let filteredData ;
+      if(employeeEmail === 'employee.gmail.com'){    
+            filteredData = rooms_json.filter(rooms => rooms.hotel_id === hotels_id_storage && rooms.room_id === 1);
+      }else{
+           filteredData = rooms_json.filter(rooms => rooms.hotel_id === hotels_id_storage && rooms.room_id !== 1);
+      }
+
+  
     filteredData.sort((a, b) => a.room_id - b.room_id);
     if (filteredData.length === 0) {
         tableBody.innerHTML = '<tr><td colspan="7" style="text-align: center;">No rooms data available</td></tr>';
@@ -987,7 +1000,13 @@ function populate_employee() {
     // Retrieve data from localStorage   
     const hotels_id_storage = parseInt(sessionStorage.getItem('employeeHotelId'), 10);
 //    const hotels_id_storage = ;
-    const filteredData = employee_json.filter(employee => employee.hotel_id === hotels_id_storage);
+    const employeeEmail = sessionStorage.getItem('employeeEmail');
+    let filteredData ;
+      if(employeeEmail === 'employee.gmail.com'){    
+         filteredData = employee_json.filter(employee => employee.hotel_id === hotels_id_storage && employee.email === 'employee@gmail.com');
+     }else{
+           filteredData = employee_json.filter(employee => employee.hotel_id === hotels_id_storage && employee.email !== 'employee@gmail.com');
+     }
     filteredData.sort((a, b) => a.emp_id - b.emp_id);
     if (filteredData.length === 0) {
         tableBody.innerHTML = '<tr><td colspan="7" style="text-align: center;">No rooms data available</td></tr>';
@@ -1005,7 +1024,6 @@ function populate_employee() {
         // Conditionally add the delete button only if room_id is not 1
         if (employee.email !== 'employee@gmail.com') {
             if (employee.type !== 'A') {
-
                 row.innerHTML += `
               <td style="text-align: center">
                         <a  onclick="return edit_employee('${employee.emp_id}');">
@@ -1174,7 +1192,7 @@ function add_room_details() {
     if (isOkFields) {
 
         const lastRoomId = localStorage.getItem("lastRoomId");
-        const lastRoomIdNumber = lastRoomId ? parseInt(lastRoomId, 10) : 0;
+        const lastRoomIdNumber = lastRoomId ? parseInt(lastRoomId, 10) : 1;
         const nextRoomId = lastRoomIdNumber + 1;
         const hotels_id_storage = parseInt(sessionStorage.getItem('employeeHotelId'), 10);
 
@@ -1234,9 +1252,16 @@ function populate_vacant_rooms() {
 
     // Retrieve data from localStorage
 
+    const employeeEmail = sessionStorage.getItem('employeeEmail');
+    
     const hotels_id_storage = parseInt(sessionStorage.getItem('employeeHotelId'), 10);
 //    const hotels_id_storage = ;
-    const filteredData = rooms_json.filter(rooms => rooms.hotel_id === hotels_id_storage && rooms.pending === "UR");
+ let filteredData ;
+  if(employeeEmail === 'employee.gmail.com'){
+      filteredData = rooms_json.filter(rooms => rooms.hotel_id === hotels_id_storage && rooms.pending === "UR" && rooms.room_id === 1);
+  }else{
+      filteredData = rooms_json.filter(rooms => rooms.hotel_id === hotels_id_storage && rooms.pending === "UR"  && rooms.room_id !== 1);
+  }
 
     filteredData.sort((a, b) => a.room_id - b.room_id);
     if (filteredData.length === 0) {
@@ -1252,7 +1277,7 @@ function populate_vacant_rooms() {
                     <td>${room.floor}</td>
                     <td>${room.ac_nonac}</td>
                     <td>${room.prize}</td> `;
-        // Conditionally add the delete button only if room_id is not 1
+        // Conditionally add the delete button only if room_id is not 1                    
         if (room.room_id !== 1) {
             row.innerHTML += `
                     <td style="text-align: center">
@@ -1263,7 +1288,7 @@ function populate_vacant_rooms() {
         } else {
             row.innerHTML += `<td>Demo Data</td>`; // Add an empty cell if no delete button is added
         }
-
+        
         tableBody.appendChild(row);
     });
 }
@@ -1617,7 +1642,7 @@ function generatePDF(booking_id) {
 
     // Add QR Code
     const qr = new QRious({
-        value: 'http://192.168.1.41:8080/Sun_Shine_Hotel/',
+        value: 'https://anuj0806.github.io/Sun-Shine-Hotel/',
         size: 100
     });
     const qrImage = qr.toDataURL();

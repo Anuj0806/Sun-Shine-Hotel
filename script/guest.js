@@ -371,13 +371,14 @@ function saveGuestData(newGuest) {
     let emailExists = guests.some(guest => guest.email === newGuest.email);
     if (emailExists) {
         alert("Error: This email is already registered.");
-        return;
+        return false;
     }
     let lastGuestId = guests.length > 0 ? guests[guests.length - 1].guest_id : 100;
     newGuest.guest_id = lastGuestId + 1;
     guests.push(newGuest);
     localStorage.setItem('guest_data', JSON.stringify(guests));
     alert("Guest data saved successfully.");
+    return true;
 }
 
 function saveOTP() {
@@ -403,8 +404,11 @@ function saveOTP() {
                 "email": params_guest_register.get("email"),
                 "password": params_guest_register.get("password")
             };
-            saveGuestData(guest_data);
-
+            var check = saveGuestData(guest_data);
+            if (check) {
+                document.getElementById("otpPopup").style.display = "none";
+                window.location = "guestLogin.html#cover";
+            }
         } else {
             alert("Your OTP did not match");
             resetOTPInputs();
@@ -412,8 +416,7 @@ function saveOTP() {
     } else {
         alert("Please enter a valid 6-digit OTP.");
     }
-    document.getElementById("otpPopup").style.display = "none";
-    window.location = "guestLogin.html#cover";
+
 }
 
 
@@ -557,8 +560,10 @@ function updateGuestPassword(email, newPassword) {
         guests[guestIndex].password = newPassword;
         localStorage.setItem('guest_data', JSON.stringify(guests));
         alert("Password updated successfully.");
+        return  true;
     } else {
         alert("Error: Guest not found with the provided email.");
+        return false;
     }
 }
 
@@ -622,10 +627,12 @@ function save_guest_password() {
                 document.getElementById("loaderactive_pop").style.display = "grid";
                 document.getElementById("disablebuttonsave").style.display = "none";
 
-                updateGuestPassword(forgot_password_guest.get("email"), new_password);
+               var check= updateGuestPassword(forgot_password_guest.get("email"), new_password);
+               if(check){
                 document.getElementById("loaderactive").style.display = "none";
                 document.getElementById("disablebuttonsave").style.display = "inline";
                 window.location = "guestLogin.html#cover";
+            }
 
             } else {
                 alert("Your OTP did not match");
@@ -1010,7 +1017,7 @@ function getRoomNumberById(room_id) {
 }
 
 function populatePaymentGuest() {
-    const session_guest_email = sessionStorage.getItem('GusetEmail');    
+    const session_guest_email = sessionStorage.getItem('GusetEmail');
     footerFunction();
     const tableBody = document.querySelector('tbody');
     tableBody.innerHTML = ''; // Clear existing rows
@@ -1076,7 +1083,7 @@ function generatePDF(booking_id) {
 
     // Add QR Code
     const qr = new QRious({
-        value: 'http://192.168.1.41:8080/Sun_Shine_Hotel/',
+        value: 'https://anuj0806.github.io/Sun-Shine-Hotel/',
         size: 100
     });
     const qrImage = qr.toDataURL();
