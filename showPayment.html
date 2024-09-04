@@ -1,0 +1,71 @@
+<html lang="en">
+    <head>
+        <title>All Payment Page</title>
+        <link rel="icon"  href="./image/hotel-sign.png">
+        <link rel="stylesheet" href="./css/tables.css">  
+        <script src="./script/employee.js" type="text/javascript"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/dist/qrious.min.js"></script>        
+        <meta charset="UTF-8">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.21/jspdf.plugin.autotable.min.js"></script>
+
+
+
+        <script>
+            function cancel() {
+                alert("Room is Cancel By the Emplyee");
+            }
+            function waiting() {
+                alert("Room is not Confirmed Yet");
+            }
+
+        </script>
+        <style>
+            .search-container {
+                display: flex;
+                align-items: center;
+                margin-bottom: 20px;
+            }
+            .search-container label,
+            .search-container select,
+            .search-container button {
+                margin-right: 10px;
+            }
+            @media (max-width: 1150px) {
+                .container {
+                    top: 19%;
+                    position: fixed;
+                }
+            }
+        </style>
+    </head>
+
+    <body onload="populate_Payment()">             
+        <nav>
+            <ul>
+                <li class="logo"><a href="employee_homepage.html" id="hotelName" style="cursor: pointer;font-size: 2rem;"></a></li>            
+                <li class="items">Payment Details</li>       
+                <li class="btn"><a href="#"><i class="fas fa-bars"></i></a></li>
+            </ul>
+        </nav>
+        <div class="container" style="height: 70%; ">
+            <table class="scrollit">
+                <thead>
+                    <tr>                            
+                        <th>Invoice No.</th>                                                   				                       
+                        <th>Email</th>                                                   				                       
+                        <th>Name</th>
+                        <th>Status</th>              
+                        <th>Payment Mode</th>
+                        <th>Payment Time</th> 
+                        <th style="text-align: center">Download Invoice</th>
+                    </tr>
+                </thead>                                                    
+                <tbody>
+
+                </tbody>                                        
+            </table>
+        </div>       
+    </body>
+</html>

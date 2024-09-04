@@ -1,0 +1,42 @@
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="./css/home.css">
+        <link rel="stylesheet" href="./css/EA_login.css">
+        <link rel="stylesheet" href="./css/loader.css">
+        <link rel="icon" href="./image/hotel-sign.png">
+        <script src="./script/admin.js" type="text/javascript"></script>      
+        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"> <!-- HTTP 1.1 -->
+        <meta http-equiv="Pragma" content="no-cache"> <!-- HTTP 1.0 -->
+        <meta http-equiv="Expires" content="0"> <!-- Proxies -->
+        <title>Admin Login Page</title>
+        <style>
+            body {
+                display: flex;
+                flex-direction: column;
+            }
+        </style>
+
+        <script type="text/javascript">
+            const AdminEmail = sessionStorage.getItem('AdminEmail');
+            if (AdminEmail !== null) {
+                sessionStorage.removeItem("AdminEmail");
+            }
+        </script>
+    </head>
+    <body>
+        <div class="login">
+            <h1>Admin Login</h1>
+            <form>
+                <input type="email" placeholder="Enter your Email" autocomplete="off" name="email" required="" id="admin_username">
+                <input type="password" placeholder="Password" required="" name="password" autocomplete="off" id="admin_password">
+                <div class="loader" style="margin: auto" id="loaderactive"></div>
+                <button type="button" id="disablebutton" style="width: 100%" class="btn btn-primary btn-block btn-large" onclick="getlogin_data_admin()">Let me in.</button>
+            </form>
+        </div>
+
+        <footer>
+            <marquee  style="background: black">Usename : admin1@gmail.com  &nbsp;&nbsp;&nbsp;&nbsp;  Password : 1234  &nbsp;&nbsp;&nbsp;&nbsp; This is for Test The Website</marquee>
+            <p style="margin: 0px;" class="footer_data_lic"></p>
+        </footer>
+    </body>
+</html>

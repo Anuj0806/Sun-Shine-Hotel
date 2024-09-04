@@ -1,0 +1,50 @@
+<html>
+    <head>
+        <title class="footer_data"></title>
+        <link rel="icon"  href="./image/hotel-sign.png">       
+        <link rel="stylesheet" href="./css/home.css"> 
+        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"> <!-- HTTP 1.1 -->
+        <meta http-equiv="Pragma" content="no-cache"> <!-- HTTP 1.0 -->
+        <meta http-equiv="Expires" content="0"> <!-- Proxies -->
+        <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+        <script src="./script/admin.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+        <script>
+            const AdminEmail = sessionStorage.getItem('AdminEmail');
+            if (AdminEmail === null) {
+                window.location.href = 'adminLogin.html';
+
+            }
+          
+
+            $(document).ready(function () {
+                footerFunction();
+                $('.btn').click(function () {
+                    $('.items').toggleClass("show");
+                    $('ul li').toggleClass("hide");
+                });
+            });
+        </script>
+    </head>    
+    <body class="imageadmin">   
+
+        <nav style="background: #2c94b3;margin-bottom: 0px;">
+            <ul >
+                <li class="logo footer_data"  class="footer_data"></li>
+                <li class="items"><a href="employee_detail_admin.html">All Employee Details</a></li>                
+                <li class="items"><a href="show_Guest.html">Show Guest</a></li>
+                <!--<li class="items"><a href="show_payment.jsp">Show Payment</a></li>-->
+                <!--                <li class="items"><a href="add_room_emaploye.jsp">Add Room</a></li>-->
+                <!--<li class="items"><a href="addemployee.jsp">Add Employee</a></li>-->
+                <li class="items"><a href="Hotel_Detail.html">Hotel Details</a></li>       
+                <li class="items"><a href="logout.html?admin=admin">Log Out</a> </li>
+                <li class="btn"><a href="#"><i class="fas fa-bars"></i></a></li>
+            </ul>
+        </nav>
+        <div  ></div>
+        <footer style="    margin-top: 548px;">
+            <p style="margin: 0px;" class="footer_data_lic"></p>
+        </footer>
+
+    </body>
+</html>

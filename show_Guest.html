@@ -1,0 +1,48 @@
+<html lang="en">
+    <head>
+        <!-- Design by foolishdeveloper.com -->
+        <title>Guest Detail</title>
+        <link rel="icon"  href="./image/hotel-sign.png">
+        <link rel="stylesheet" href="./css/tables.css">      
+        <!--<script src="./script/admin_js_api/employee_delete.js" type="text/javascript"></script>-->  
+        <script src="./script/admin.js" type="text/javascript"></script>  
+        <script>
+                 const AdminEmail = sessionStorage.getItem('AdminEmail');
+            if (AdminEmail === null) {
+                window.location.href = 'adminLogin.html';
+
+            }
+            // Populate table on page load
+
+        window.addEventListener('load', populate_guest);
+        window.addEventListener('load', footerFunction);
+
+        </script>
+    </head>
+    <body>     
+        <nav>
+            <ul>
+                <li class="logo"><a href="adminHomePage.html"  class="footer_data" style="cursor: pointer;font-size: 2rem;"></a></li>           
+                <li class="items">All Guest Details</li>       
+
+                <li class="btn"><a href="#"><i class="fas fa-bars"></i></a></li>
+            </ul>
+        </nav>
+        <div class="container" style="position: fixed;">
+            <table class="scrollit">
+                <thead>
+                    <tr>                            
+                        <th class="text">Name</th>
+                        <th>Phone</th>
+                        <th>Address</th>				
+                        <th>Email</th>      
+                        <th style="text-align: center">Delete</th>
+                    </tr>
+                </thead>    
+                <tbody>
+                    
+                </tbody>                                                           
+            </table>
+        </div>       
+    </body>
+</html>

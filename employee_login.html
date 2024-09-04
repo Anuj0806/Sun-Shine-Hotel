@@ -1,0 +1,53 @@
+<html lang="en">
+    <head>      
+        <title>Employee Login Page</title>
+        <link rel="icon"  href="./image/hotel-sign.png">
+        <link rel="stylesheet" href="./css/home.css">      
+        <link rel="stylesheet" href="./css/EA_login.css">     
+        <link rel="stylesheet" href="./css/loader.css">     
+        <script src="./script/employee.js" type="text/javascript"></script>      
+        <style>
+            body{
+                display: flex;
+                flex-direction: column;
+            }
+            .btn-block {
+                width: 49%;
+                display: inline;
+            }
+        </style>
+        <script>
+            const employeeEmail = sessionStorage.getItem('employeeEmail');
+            if (employeeEmail !== null) {
+                sessionStorage.removeItem("employeeEmail");
+                sessionStorage.removeItem("employeeHotelId");
+                sessionStorage.removeItem("employeeType");
+                sessionStorage.removeItem("employeeHotelName");           
+            }
+        </script>
+    </head>
+    <body>
+        <div class="login">
+            <h1>Employee Login</h1> 
+            <form>
+                <input type="text" name="email" autocomplete="off" placeholder="Enter your Email" required="" id="employee_username"> 
+                <input type="password" autocomplete="off" name="password" placeholder="Password" required="" id="employee_password">
+                <div class="loader" style="margin: auto" id="loaderactive"></div>
+                <div id="disablebutton" style="display: inline;width: 100%;gap: 5%;">                 
+                    <button type="button" class="btn btn-primary btn-block btn-large"  onclick="getlogin_data_employee()">Let me in.</button>
+                    <a style="text-decoration: none" href="reset_pass_employee.html">
+                        <button type="button"  class="btn btn-primary btn-block btn-large">Forgot Password</button>
+                    </a>
+                </div>
+                <div>
+                    <a style="text-decoration: none" href="add_hotels.html"><button type="button" style="width: 100%;" class="btn btn-primary btn-block btn-large">Add New Hotels</button></a>
+                </div>
+            </form> 
+        </div> 
+
+        <footer>
+            <marquee  style="background: black">Usename : employee@gmail.com  &nbsp;&nbsp;&nbsp;&nbsp;  Password : 1234  &nbsp;&nbsp;&nbsp;&nbsp; These credentials are used to test the website, or you can add the hotel and login to the application.</marquee>
+            <p style="margin: 0px;" class="footer_data_lic"></p>
+        </footer>
+    </body>
+</html>

@@ -1,0 +1,42 @@
+<html lang="en">
+    <head>
+        <title>Reservation</title>
+        <link rel="icon"  href="./image/hotel-sign.png">       
+        <link rel="stylesheet" href="./css/tables.css">    
+        <link rel="stylesheet" href="./css/loader.css">    
+        <script src="./script/employee.js"></script>
+            <script>
+             const employeeEmail = sessionStorage.getItem('employeeEmail');               
+                if (employeeEmail === null) {
+                    window.location.href = 'employee_login.html';
+                }
+        </script>
+    </head>
+    <body onload="populate_reserved_rooms()">        
+        <nav>
+            <ul>
+                <li class="logo"><a href="employee_login_page.jsp" id="hotelName" style="cursor: pointer;font-size: 2rem"></a></li>            
+                <li class="items">Reserved Rooms</li>       
+                <li class="btn"><a href="#"><i class="fas fa-bars"></i></a></li>
+            </ul>
+        </nav>
+        <div class="container">
+            <table class="scrolldown" >
+                <thead>
+                    <tr>                            
+                        <th class="text">Room No</th>
+                        <th>Price</th>                          
+                        <th>Check In Detail</th>
+                        <th>Check Out Detail</th>
+                        <th>Days Stay</th>
+                        <th>Booking Time</th>
+                        <th style="text-align: center;">Check Out</th>
+                    </tr>
+                </thead>                
+                <tbody>
+                    
+                </tbody>                     
+            </table>
+        </div>      
+    </body>
+</html>

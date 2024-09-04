@@ -1,0 +1,59 @@
+<html>
+    <head>       
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Forgot Password</title>
+        <link rel="icon"  href="./image/hotel-sign.png">
+        <link rel="stylesheet" href="./css/form.css">      
+        <link rel="stylesheet" href="./css/loader.css">
+        <script src="./script/guest.js" type="text/javascript"></script>
+    </head>
+    <body onload="footerFunction()">
+        <nav>
+            <ul>
+                <li class="logo footer_data"></li>            
+                <li class="items">Change Password </li>       
+                <li class="btn"><a href="#"><i class="fas fa-bars"></i></a></li>
+            </ul>
+        </nav>   
+        <div style="position: relative;top: 100px;">
+            <h2>Forgot Guest Password</h2>
+            <div class="cardcon">                      
+                <form>                                                                      
+                    <div class="mb-3">
+                        <input type="text" class="form-control" name="name" autocomplete="off" id="user_name" placeholder="Enter Your Name" required="">
+                    </div>                     
+                    <div class="mb-3">
+                        <input type="email" name="email" autocomplete="off" class="form-control" id="user_email" placeholder="Email" required="">
+                    </div>     
+                    <div class="text-center">
+                        <div class="loader" style="margin: auto;" id="loaderactive"></div>
+                        <button type="button" class="btn btn-primary btn-block btn-large" id="disablebutton" onclick="change_guest_pass()" class="btn btn-color px-5 mb-5 w-100">Send OTP</button>
+                    </div>            
+                </form>
+            </div>
+        </div>
+        <div id="otpPopup"  class="popup">
+            <div class="popup-content">
+                <button class="close-btn" onclick="closePopup()">×</button>
+                <h2>Enter OTP</h2>
+                <div id="otpInputs">
+                    <input type="text" class="email-otp-input" style="width: 50px;" pattern="\d" maxlength="1" required oninput="moveToNext(this)">
+                    <input type="text" class="email-otp-input" style="width: 50px;" pattern="\d" maxlength="1" disabled oninput="moveToNext(this)">
+                    <input type="text" class="email-otp-input" style="width: 50px;" pattern="\d" maxlength="1" disabled oninput="moveToNext(this)">
+                    <input type="text" class="email-otp-input" style="width: 50px;" pattern="\d" maxlength="1" disabled oninput="moveToNext(this)">
+                    <input type="text" class="email-otp-input" style="width: 50px;" pattern="\d" maxlength="1" disabled oninput="moveToNext(this)">
+                    <input type="text" class="email-otp-input" style="width: 50px;" pattern="\d" maxlength="1" disabled oninput="moveToNext(this)">
+                </div>
+                <div>
+                    <input type="password"  name="password" autocomplete="off"  id="old_password" placeholder="Enter new Password" required>
+                    <input type="password"  name="retypepassword" autocomplete="off"  id="new_password" placeholder="Re-Enter new Password" required>
+                </div>
+                <br>
+                <div class="loader" style="margin: auto;" id="loaderactive_pop"></div>
+                <button  class="button-7" id="disablebuttonsave" onclick="save_guest_password()">Save</button>
+                <button  class="button-7" id="disablebutton_pop" style="display: none" onclick="resendemail_guest()" onclick="resendOTP()">Resend OTP</button>
+                <div class="countdown" id="countdown">Resend available in 30 seconds</div>
+            </div>
+        </div>
+    </body>
+</html>

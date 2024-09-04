@@ -1,0 +1,78 @@
+<html lang="en">
+    <head>
+        <title>All Room Detail</title>
+        <link rel="icon"  href="./image/hotel-sign.png">    
+        <link href="./css/tables.css" rel="stylesheet">      
+        <link href="./css/payment.css" rel="stylesheet">      
+        <link rel="stylesheet" href="./css/loader.css">
+        <script src="./script/employee.js" type="text/javascript"></script>
+        <script>
+             const employeeEmail = sessionStorage.getItem('employeeEmail');               
+                if (employeeEmail === null) {
+                    window.location.href = 'employee_login.html';
+                }
+        </script>
+    </head>
+    <body onload="populate_vacant_rooms()">           
+        <nav>
+            <ul>
+                <li class="logo"><a href="employee_homepage.html" id="hotelName" style="cursor: pointer;font-size: 2rem;"></a></li>           
+                <li class="items"><a>Room List</a></li>                       
+                <li class="btn"><a href="#"><i class="fas fa-bars"></i></a></li>
+            </ul>
+        </nav>
+        <div class="container">
+            <table class="scrollit">
+                <thead>
+                    <tr>                            
+                        <th class="text">Room No</th>
+                        <th>Room Class</th>
+                        <th>Number of Beds</th>				
+                        <th>Floor</th>
+                        <th>AC or Non AC Room </th>
+                        <th>Price</th>
+                        <th>Book Room</th>
+                    </tr>
+                </thead>                                                        
+                <tbody>
+
+                </tbody>                         
+            </table>
+        </div> 
+
+        <div id="otpPopup" class="popup">
+            <div class="popup-content" >
+                <button class="close-btn" style="background: blue" onclick="closePopup_bookRoom()">x</button>              
+                <div class="rightside">                 
+                    <form class="form" style="    display: inline-block;"  id="myForm"  role="form" autocomplete="off">
+                        <input type="text" hidden="" id="price" >
+                        <input type="text" hidden="" id="room_id" >
+                        <h1 style="margin: 0px;text-align: center">Payment</h1> <span id="book_room_no"> </span>
+                        <div class="expcvv">
+                            <p class="expcvv_text2"  style="cursor: default">Check In</p>
+                            <input type="date" class="inputbox" min="2024-09-03" onchange="calculate_price()" value="2024-09-03" id="checkin_date" name="checkin" required />
+                            <p class="expcvv_text2">Check Out</p>
+                            <input type="date" class="inputbox" onchange="calculate_price()"  min="2024-09-03" name="checkout" id="checkout_date" required />
+                        </div>
+                        Name<input type="text" class="inputbox"  name="name" id="guest_name" required />
+                        Email<input type="email" class="inputbox" list="emailOfGuest"  name="email" onchange="getDetails(this.value)"  id="guest_email" id="card_number" required />                       
+                        Address<input type="text" class="inputbox" id="guest_address" name="address" required />
+                        Card Type
+                        <select class="inputbox" style="margin: 10px  10% 10px 10px;"  name="payment_type"  id="card_type" required>
+                            <option value="">Payment Type</option>
+                            <option value="Card">Card</option>
+                            <option value="Cash">Cash</option>
+                            <option value="UPI">UPI</option>
+                            <option value="Net Banking">Net Banking</option>
+                        </select>                                
+                        Price<input type="text"  readonly="" id="exampleInputAmount" name="price"  class="inputbox" required /> 
+
+                </div>
+
+                <div class="loader" id="loaderactive"></div>
+                <button type="button"  onclick="book_vacent_room()" id="disablebutton"  class="button">Pay Bill</button>
+                </form>
+            </div>
+        </div>
+</body>
+</html>

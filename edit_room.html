@@ -1,0 +1,104 @@
+<html lang="en">
+    <head>
+        <title>All Room Detail</title>
+        <link rel="icon"  href="./image/hotel-sign.png">    
+        <link href="./css/tables.css" rel="stylesheet">   
+        <link rel="stylesheet" href="./css/alert.css">        
+        <link rel="stylesheet" href="./css/loader.css">        
+        <script src="./script/employee.js"></script>
+        <style>
+            select{
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                width: 20%;
+            }
+
+        </style>
+    </head>
+    <body onload="populate_rooms()">       
+        <nav>
+            <ul>          
+                <li class="logo"><a href="employee_login_page.jsp" style="cursor: pointer;font-size: 2rem;" id="hotelName"></a></li>            
+                <li class="items"><a>Room List</a></li>                       
+                <li class="btn"><a href="#"><i class="fas fa-bars"></i></a></li>
+            </ul>
+        </nav>
+        <div class="container">         
+
+            <table class="scrollit">
+                <thead>
+                    <tr>                            
+                        <th class="text">Room No</th>
+                        <th>Room Class</th>
+                        <th>Number of Beds</th>				
+                        <th>Floor</th>
+                        <th>AC or Non AC Room </th>
+                        <th>Price</th>                       
+                        <th><span>Edit</span></th>
+                        <th><span>Delete</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>                               
+            </table>
+
+        </div>
+
+        <div id="otpPopup"  class="popup">
+            <div class="popup-content" >
+                <button class="close-btn" style="background: blue" onclick="closePopup_bookRoom()">x</button>              
+                <div class="container" style="max-width: 80%;left: 10%">
+                    <h2 style="display: ;align-items: center">Edit Room Details</h2><pre> Room No :- <span id="room_id_display"></span></pre>                                         
+                    <input type="hidden" id="room_id">
+                    <label for="room_no">Room No</label>
+                    <input type="number" readonly="" id="room_no" name="room_no" required>                        
+
+                    <label for="room_class">Room Class</label>
+                    <select id="room_class" name="room_class" required>
+                        <option value="">--Select Type--</option>
+                        <option>Double Room</option>
+                        <option>Deluxe Room</option>
+                        <option>Standard Suite Rooms</option>
+                        <option>Single Room</option>
+                        <option>Connecting Rooms</option>
+                        <option>Triple Room</option>
+                        <option>Joint Room</option>     
+                    </select>
+
+                    <label for="beds">Number of Beds</label>                  
+                    <select id="beds" name="beds" required>
+                        <option value="">--Select Beds--</option>
+                        <option>Queen Size Beds</option>
+                        <option>King Size Beds</option>
+                        <option>Twin Size Beds</option>
+                        <option>Single Beds</option>                  
+                        <option>Double Beds</option>
+                        <option>Hollywood twin Beds</option>
+                        <option>Twin Size Beds</option>        
+                    </select>
+
+
+                    <label for="floor">Floor</label>
+                    <input type="text" id="floor" name="floor" required>
+
+                    <label for="ac_nonac">AC or Non AC Room</label>
+                    <select id="ac_nonac" name="ac_nonac" required>
+                        <option value="">--Select Ac/Non-Ac--</option>
+                        <option>Non AC</option>
+                        <option>Fully AC</option>
+                    </select>
+                    <label for="price">Price</label>
+                    <input type="number" id="price" name="price" required>
+
+                    <button type="button" onclick="saveEditRoom()">Update Room</button>
+
+                </div>
+            </div>
+        </div>
+
+
+
+    </body>
+</html>

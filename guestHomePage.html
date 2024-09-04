@@ -1,0 +1,163 @@
+
+<html>
+    <head>
+        <title>Hotel Booking</title>
+        <link href="./css/guest.css" rel="stylesheet"> 
+        <link rel="icon"  href="./image/hotel-sign.png">        
+        <script src="./script/fetch_hotel_api.js" type="text/javascript"></script>       
+        <script src="./script/guest.js" type="text/javascript"></script>               
+        <script type="text/javascript">
+
+            const GusetEmail = sessionStorage.getItem('GusetEmail');
+            if (GusetEmail === null) {
+                window.location.href = 'guestLogin.html#cover';
+            }
+            function checkDetailsStatus() {
+                if (GusetEmail === 'admin@gmail.com') {
+                    alert("This is the demo email. If you want to Check website, then Sign Up first.");
+                    return;
+                } else {
+                    document.getElementById('roomStatus').setAttribute('href', 'roomStatus.html');
+                }
+            }
+
+
+        </script>          
+    </head>
+    <body onload="onloadguestloginpage();">
+        <nav class="fixed-header" style="position: sticky;top: 0;z-index: 5;">
+            <ul>
+                <li class="logo footer_data"></li>    
+                <!--                <li class="items"><a href="#">Edit Order</a></li>  
+                                <li class="items"><a href="#">Book Food</a></li>   -->
+                <li class="items"><a onclick="display_guest_details()">Edit Detail</a></li>   
+                <li class="items"><a onclick="checkDetailsStatus()" id="roomStatus">Book Room Status</a></li>       
+                <li class="items"><a href="logout.html?guest=guest">Log Out</a></li>  
+                <li class="btn"><a href="#"><i class="fas fa-bars"></i></a></li>
+            </ul>
+        </nav>
+
+
+        <div class="filter-card filters cardfilter" style="position: sticky;top: 80px;z-index: 6; background: var(--background-gradient);float: left;height: 100%;">
+            <h2 class="filter-title">Filters</h2>                
+            <div class="filter-options">
+                <div class="filter-option">                        
+                    <select name="price" id="price_filter" class="filter-select">                             
+                        <option value="">-- Select Price --</option>
+                        <option value="999">Less Than 999</option>
+                        <option value="1000">1000 - 2999</option>
+                        <option value="3000">3000 - 4999</option>
+                        <option value="5000">5000+</option>
+                    </select>
+                </div>
+            </div>
+            <div class="filter-options">
+                <div class="filter-option">                        
+                    <select name="location" id="description_filter"  class="filter-select">                              
+                        <option value="">-- Select City --</option>
+                        <option value="Ganaur">Ganaur</option>
+                        <option value="Sonipat">Sonipat</option>
+                        <option value="Karnal">Karnal</option>
+                        <option value="Delhi">Delhi</option>
+                    </select>
+                </div>
+            </div>
+            <div class="filter-options">
+                <div class="filter-option">                        
+                    <select name="ac_type" id="classInput_filter" class="filter-select">                             
+                        <option value="">-- Select Room Type --</option>
+                        <option value="Fully AC">Fully AC</option>
+                        <option value="Non AC">Non AC</option>
+                    </select>
+                </div>
+            </div>
+            <div class="filter-options">      
+                <button type="button" onclick="remove_filter()" class="hotel-button" >Remove Filter</button>   
+                <button type="button" onclick="apply_filter()" class="hotel-button" style="margin-left: 15px;">Apply Filter</button>            
+
+            </div>
+        </div>
+        <div class="container">
+            <div  class="hotel-list">
+                <h2 class="hotel-title">Hotels Rooms</h2>
+                <div class="hotel-list" id="hotelContainer">
+
+                </div>
+
+            </div>              
+        </div>
+
+        <div id="otpPopup" class="popup">
+            <div class="popup-content" >
+                <button class="close-btn" style="background: blue" onclick="closePopup_bookRoom()">x</button>              
+                <div class="container1" style="max-width: 80%;left: 10%">
+                    <h2 style="display: ;align-items: center">Payment</h2><pre> Room No :- <span id="room_no_display"></span></pre>                                         
+                     <input type="text" hidden="" id="price" >
+                        <input type="text" hidden="" id="room_id" >                            
+                        <input type="text" hidden="" id="hotel_id" >                            
+                        <label for="checkin_date">Check In</label>
+                        <input type="date" class="inputbox" min="2024-09-03" onchange="calculate_price()" value="2024-09-03" id="checkin_date" name="checkin" required />                           
+                        <label for="checkin_date">checkout_date</label>
+                        <input type="date" class="inputbox" onchange="calculate_price()"  min="2024-09-03" name="checkout" id="checkout_date" required />
+                         <label for="guest_name">Name</label>
+                        <input type="text" readonly class="inputbox"  name="name" id="guest_name" required />
+                        <label for="guest_email">Email</label>
+                        <input type="email" readonly class="inputbox" list="emailOfGuest"  name="email" onchange="getDetails(this.value)"  id="guest_email"  required />                       
+                        <label for="guest_address">Address</label>
+                        <input type="text" readonly class="inputbox" id="guest_address" name="address" required />                                                                            
+                    <label for="card_type">Card Type</label>
+                    <select onchange="showFields()" id="card_type" name="card_type" required>
+                           <option value="">Payment Type</option>                          
+                             <option value="VISA">VISA</option>                           
+                            <option value="Master Card">Master Card</option>                           
+                            <option value="Rupay Card">RuPay Card</option> 
+                            <option value="UPI">UPI</option>                          
+                    </select>
+                        <div id="cardFields" style="display:none;margin: 0px" class="expcvv">     
+                             <label for="holder_name">Cardholder Name</label>
+                            <input type="text"  class="inputbox"  id="holder_name"  name="holder_name" required />
+                             <label for="card_number">Card Number</label>
+                            <input type="text" class="inputbox" maxlength="16" pattern="\d{16}" title="Credit card number must be 16"  name="number" id="card_number" required />
+                             <label for="exp_date" style="margin-left: 15%;">Expiry</label>
+                            <input type="month"    class="inputbox" min="<%=month%>" name="cc_exp_mo" id="exp_date" required />
+                             <label for="cvv">CVV</label>
+                            <input type="password"  class="inputbox" pattern="\d{3}" maxlength="3" title="Three digits at back of your card" name="cvv" id="cvv" required />                             
+                        </div>  
+                    <label for="exampleInputAmount">Price</label>
+                   <input type="text"  readonly="" id="exampleInputAmount" name="price"  class="inputbox" required /> 
+                    <div>  
+                        <button type="button" class="popupbutton" onclick="book_vacent_room()">Confirm Booking</button>
+                    </div>
+                </div>                               
+            </div>
+        </div>
+  
+        <!--//editguest details pop up-->
+
+        
+        <div id="editPopup" class="popup">
+            <div class="popup-content" >
+                <button class="close-btn" style="background: blue" onclick="closePopup_geustDetails()">x</button>              
+                <div class="container1" style="max-width: 94%;">
+                    <h2 style="display: ;align-items: center">Guest Details</h2><pre> Guest Name :- <span id="guest_name_header"></span></pre>                                         
+<div>
+                         <input type="text" hidden="" id="geust_id" >                                                                     
+                        <label for="guest_name">Guest Name</label>
+                        <input type="text" class="inputbox"  id="guest_name_edit"  required />                           
+                        <label for="guest_email">Guest Email</label>
+                        <input type="email" class="inputbox"   id="guest_email_edit" required />
+                         <label for="guest_phone">Guest Phone</label>
+                        <input type="text"  class="inputbox"  name="name" id="guest_phone" required />
+                        <label for="guest_add">Guest Address</label>
+                        <input type="text"  class="inputbox" style="width: 50%" list="emailOfGuest"  name="email"  id="guest_add" id="card_number" required />                                                                 
+                    <div>  
+                        <button type="button" class="popupbutton" onclick="saveGuestDetais()">Change Details</button>
+                    </div>
+                        </div>
+                </div>                               
+            </div>
+        </div>
+    
+    
+</body>
+</html>
