@@ -1,5 +1,5 @@
 // Function to dynamically load a script
-var public_key = "Bc6Q0uME5PARDagYq";
+var public_key = "Bc6Q0uME5PARDaYq";
 function loadScript(url, callback) {
     const script = document.createElement('script');
     script.src = url;
@@ -310,7 +310,7 @@ function getlogin_data_employee() {
             if (employee) {
 
                 function getHotelNameById(hotel_id) {
-                    const employeesHotelArrayString = localStorage.getItem("hotels_data");
+                    const employeesHotelArrayString = localStorage.getItem("hotel_details");
                     const employeesHotelArray = employeesHotelArrayString ? JSON.parse(employeesHotelArrayString) : [];
                     const hotelJSON = employeesHotelArray.find(hotel => hotel.hotel_id === hotel_id);
                     if (hotelJSON) {
@@ -894,6 +894,13 @@ function add_new_employee() {
 
 
     if (isOkFilelds) {
+        var confirmation=confirm("Check the Email once ageain! The Password of the employee send on this Email. The email :-"+email);
+        if(!confirmation){
+            document.getElementById("email").value = "";
+            return ;
+        }
+        
+        
         document.getElementById("loaderactive").style.display = "grid";
         document.getElementById("disablebutton").style.display = "none";
 
@@ -1030,7 +1037,7 @@ function populate_employee() {
                             <button style="padding: 3px;" class="button-70" role="button">Edit Employee</button>
                         </a>
                     </td>
-           <td style="text-align: center">
+                <td style="text-align: center">
                         <a  onclick="return employee_delete('${employee.emp_id}');">
                             <button style="padding: 3px; " class="button-70" role="button">Delete</button>
                         </a>
@@ -1075,7 +1082,7 @@ function saveEditEmployee() {
 
     // Save the updated details back to local storage
     let employeeLocal = JSON.parse(localStorage.getItem('rooms')) || [];
-    const employeeIndex = employee_json.findIndex(rooms => rooms.room_id === parseInt(employee_id, 10));
+    const employeeIndex = employee_json.findIndex(employee => employee.emp_id === parseInt(employee_id, 10));
     if (employeeIndex !== -1) {
         employeeLocal[employeeIndex].name = name;
         employeeLocal[employeeIndex].address = address;
@@ -1087,7 +1094,7 @@ function saveEditEmployee() {
         alert('Employee Update successfully.');
         window.location = "editEmployee.html";
     } else {
-        console.log('Employee with the specified ID not found.');
+       alert('Employee with the specified ID not found.');
     }
 }
 
@@ -1516,7 +1523,7 @@ function populate_reserved_rooms() {
     filteredData.forEach(room => {
         const row = document.createElement('tr');
         row.innerHTML = `
-                    <td>${room.booking_id}</td>
+                    <td>${getRoomNumberById(room.room_id)}</td>
                     <td>${room.room_prize}</td>
                     <td>${room.check_in}</td>
                     <td>${room.check_out}</td>
